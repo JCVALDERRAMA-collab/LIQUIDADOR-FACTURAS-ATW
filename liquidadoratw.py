@@ -97,6 +97,3 @@ st.subheader("Resultados:")
 st.success(f"**Subtotal Neto (Subtotal - Rete Fuente - Descuento PP):** ${subtotal_neto:,.2f}")
 st.success(f"**IVA Neto (IVA - Rete IVA):** ${iva_neto:,.2f}")
 st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
-
-st.markdown("---")
-st.caption("Hecho con ❤️ por tu asistente Gemini.")
