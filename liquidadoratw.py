@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
+import urllib.parse # Para codificar la URL del mailto
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
@@ -100,45 +101,47 @@ st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
 st.markdown("---")
 st.header("5. Información Adicional de la Factura")
 
+# Nuevos cuadros de texto para NIT y Número de Factura
 nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
-# Botón para enviar la información
-if st.button("Enviar Información por Correo"):
-    # Recopilar toda la información relevante
-    email_subject = f"Factura ATW - Cálculo para NIT: {nit} - Factura: {numero_factura}"
-    email_body = f"""
-    Estimado equipo,
+st.markdown("---")
+st.header("6. Enviar Información por Correo")
 
-    Se ha realizado un cálculo de factura con la siguiente información:
+# Recopilar toda la información relevante para el correo
+email_subject = f"Factura ATW - Cálculo para NIT: {nit} - Factura: {numero_factura}"
+email_body = f"""
+Estimado equipo,
 
-    --- Resumen de Aplicaciones ---
-    Retención en la Fuente aplicada: {'Sí' if tiene_rete_fuente else 'No'}
-    Retención de IVA aplicada: {'Sí' if tiene_rete_iva else 'No'}
-    Descuento por Pronto Pago aplicado: {'Sí' if tiene_descuento_pp else 'No'}
-    Porcentaje de Descuento PP ingresado: {porcentaje_descuento_pp:.2f}%
+Se ha realizado un cálculo de factura con la siguiente información:
 
-    --- Detalle del Subtotal (sin IVA) ---
-    Subtotal - Descuento inicial: ${subtotal_descuento:,.2f}
-    Retención en la Fuente (2.5%): -${valor_rete_fuente:,.2f}
-    Descuento por Pronto Pago ({porcentaje_descuento_pp:.2f}%): -${valor_descuento_pp:,.2f}
-    Valor Final del Subtotal: ${subtotal_neto:,.2f}
+--- Resumen de Aplicaciones ---
+Retención en la Fuente aplicada: {'Sí' if tiene_rete_fuente else 'No'}
+Retención de IVA aplicada: {'Sí' if tiene_rete_iva else 'No'}
+Descuento por Pronto Pago aplicado: {'Sí' if tiene_descuento_pp else 'No'}
+Porcentaje de Descuento PP ingresado: {porcentaje_descuento_pp:.2f}%
 
-    --- Detalle del IVA ---
-    IVA inicial: ${iva:,.2f}
-    Retención de IVA (15%): -${valor_rete_iva:,.2f}
-    Valor Final del IVA: ${iva_neto:,.2f}
+--- Detalle del Subtotal (sin IVA) ---
+Subtotal - Descuento inicial: ${subtotal_descuento:,.2f}
+Retención en la Fuente (2.5%): -${valor_rete_fuente:,.2f}
+Descuento por Pronto Pago ({porcentaje_descuento_pp:.2f}%): -${valor_descuento_pp:,.2f}
+Valor Final del Subtotal: ${subtotal_neto:,.2f}
 
-    --- Valor Total a Pagar ---
-    VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}
+--- Detalle del IVA ---
+IVA inicial: ${iva:,.2f}
+Retención de IVA (15%): -${valor_rete_iva:,.2f}
+Valor Final del IVA: ${iva_neto:,.2f}
 
-    --- Información Adicional de la Factura ---
-    NIT del Cliente: {nit}
-    Número de Factura: {numero_factura}
+--- Valor Total a Pagar ---
+VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}
 
-    Saludos,
-    Calculadora ATW
-    """
-    
+--- Información Adicional de la Factura ---
+NIT del Cliente: {nit}
+Número de Factura: {numero_factura}
+
+Saludos,
+Calculadora ATW
+"""
+
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
