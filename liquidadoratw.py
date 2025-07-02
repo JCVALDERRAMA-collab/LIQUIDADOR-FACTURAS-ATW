@@ -144,14 +144,12 @@ if st.button("Generar Correo con Información"):
     Calculadora ATW
     """
 
-    # Codificar el asunto y el cuerpo para la URL mailto
     encoded_subject = urllib.parse.quote(email_subject)
     encoded_body = urllib.parse.quote(email_body)
 
-    # Dirección de correo a la que se enviará (puedes cambiarla)
-    recipient_email = "cartera@atwinternacional.com" , "auxiliarcartera1@atwinternacional.com" # ¡IMPORTANTE: Cambia esto por el correo real!
+    recipient_email = "cartera@atwinternacional.com"
+    recipient_email = "auxiliarcartera1@atwinternacional.com"
 
-    # Crear el enlace mailto
     mailto_link = f"mailto:{recipient_email}?subject={encoded_subject}&body={encoded_body}"
 
     st.success("¡Información lista para enviar!")
