@@ -150,8 +150,6 @@ if st.button("Generar Correo con Información"):
 
     mailto_link = (
         f"mailto:{destinatario_to}"
-        f"?subject={encoded_subject}"
-        f"&body={encoded_body}"
         f"&cc={destinatario_cc}" )# Opcional: si quieres añadir a CC
 
     st.success("¡Correo generado exitosamente! Haz clic en el enlace para abrir tu cliente de correo.")
