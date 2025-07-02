@@ -147,9 +147,11 @@ if st.button("Generar Correo con Información"):
     encoded_subject = urllib.parse.quote(email_subject)
     encoded_body = urllib.parse.quote(email_body)
 
-    recipient_email = "cartera@atwinternacional.com, auxiliarcartera1@atwinternacional.com, lidercartera@atwinternacional.com"
-
-    mailto_link = f"mailto:{recipient_email}?subject={encoded_subject}&body={encoded_body}"
+    recipient_email 1= "cartera@atwinternacional.com"
+    recipient_email 2= "auxiliarcartera1@atwinternacional.com"
+    recipient_email 3= "lidercartera@atwinternacional.com"
+    
+    mailto_link = f"mailto:{recipient_email 1}{recipient_email 3}{recipient_email 3}?subject={encoded_subject}&body={encoded_body}"
 
     st.success("¡Información lista para enviar!")
     st.write("Haz clic en el siguiente enlace para abrir tu cliente de correo con la información prellenada:")
