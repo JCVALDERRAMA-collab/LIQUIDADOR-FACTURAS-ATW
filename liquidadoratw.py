@@ -116,6 +116,12 @@ if st.button("Generar Correo con Información"):
 
     Se ha realizado un cálculo de factura con la siguiente información:
 
+    --- Resumen de Aplicaciones ---
+    Retención en la Fuente aplicada: {'Sí' if tiene_rete_fuente else 'No'}
+    Retención de IVA aplicada: {'Sí' if tiene_rete_iva else 'No'}
+    Descuento por Pronto Pago aplicado: {'Sí' if tiene_descuento_pp else 'No'}
+    Porcentaje de Descuento PP ingresado: {porcentaje_descuento_pp:.2f}%
+
     --- Detalle del Subtotal (sin IVA) ---
     Subtotal - Descuento inicial: ${subtotal_descuento:,.2f}
     Retención en la Fuente (2.5%): -${valor_rete_fuente:,.2f}
@@ -138,17 +144,21 @@ if st.button("Generar Correo con Información"):
     Calculadora ATW
     """
 
+    # Codificar el asunto y el cuerpo para la URL mailto
     encoded_subject = urllib.parse.quote(email_subject)
     encoded_body = urllib.parse.quote(email_body)
 
+    # Dirección de correo a la que se enviará (puedes cambiarla)
     recipient_email = "cartera@atwinternacional.com, auxiliarcartera1@atwinternacional.com, lidercartera@atwinternacional.com" # ¡IMPORTANTE: Cambia esto por el correo real!
 
+    # Crear el enlace mailto
     mailto_link = f"mailto:{recipient_email}?subject={encoded_subject}&body={encoded_body}"
 
     st.success("¡Información lista para enviar!")
     st.write("Haz clic en el siguiente enlace para abrir tu cliente de correo con la información prellenada:")
     st.markdown(f"[**Abrir Correo con Información de Factura**]({mailto_link})")
     st.info("**Nota Importante:** Este método abrirá tu programa de correo predeterminado. Deberás hacer clic en 'Enviar' manualmente. Para un envío completamente automático sin interacción del usuario, se requeriría un servicio de backend (como una función en la nube o una API de envío de correos), lo cual implica una configuración de servidor.")
+os), lo cual implica una configuración de servidor.")
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
