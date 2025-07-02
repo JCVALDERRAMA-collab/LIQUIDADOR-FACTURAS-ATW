@@ -96,6 +96,12 @@ if tiene_rete_iva:
 st.success(f"**Valor Final del IVA:** ${iva_neto:,.2f}")
 
 st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
+
+st.markdown("---")
+st.header("5. Información Adicional de la Factura")
+
+nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
+numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
     
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
