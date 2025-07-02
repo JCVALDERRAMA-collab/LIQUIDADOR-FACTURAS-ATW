@@ -141,7 +141,7 @@ if st.button("Generar Correo con Información"):
     encoded_subject = urllib.parse.quote(email_subject)
     encoded_body = urllib.parse.quote(email_body)
 
-   recipient_email = "cartera@atwinternacional.com, auxiliarcartera1@atwinternacional.com, lidercartera@atwinternacional.com" # ¡IMPORTANTE: Cambia esto por el correo real!
+    recipient_email = "cartera@atwinternacional.com, auxiliarcartera1@atwinternacional.com, lidercartera@atwinternacional.com" # ¡IMPORTANTE: Cambia esto por el correo real!
 
     mailto_link = f"mailto:{recipient_email}?subject={encoded_subject}&body={encoded_body}"
 
