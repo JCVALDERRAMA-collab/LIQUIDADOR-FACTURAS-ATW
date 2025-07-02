@@ -71,7 +71,15 @@ iva_neto = iva - valor_rete_iva
 valor_a_pagar = subtotal_neto + iva_neto
 
 st.markdown("---")
-st.header("3. Resumen y Cálculo Final del Valor a Pagar")
+st.header("3. Resumen de Aplicaciones (informativo)")
+st.write(f"Retención en la Fuente aplicada: **{'Sí' if tiene_rete_fuente else 'No'}**")
+st.write(f"Retención de IVA aplicada: **{'Sí' if tiene_rete_iva else 'No'}**")
+st.write(f"Descuento por Pronto Pago aplicado: **{'Sí' if tiene_descuento_pp else 'No'}**")
+if tiene_descuento_pp:
+    st.write(f"Porcentaje de Descuento PP ingresado: **{porcentaje_descuento_pp:.2f}%**")
+
+st.markdown("---")
+st.header("4. Resumen y Cálculo Final del Valor a Pagar")
 
 st.subheader("Detalle del Subtotal (sin IVA):")
 st.write(f"- **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}")
@@ -89,14 +97,6 @@ st.success(f"**Valor Final del IVA:** ${iva_neto:,.2f}")
 
 st.markdown("---")
 st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
-
-st.markdown("---")
-st.header("4. Resumen de Aplicaciones (informativo)")
-st.write(f"Retención en la Fuente aplicada: **{'Sí' if tiene_rete_fuente else 'No'}**")
-st.write(f"Retención de IVA aplicada: **{'Sí' if tiene_rete_iva else 'No'}**")
-st.write(f"Descuento por Pronto Pago aplicado: **{'Sí' if tiene_descuento_pp else 'No'}**")
-if tiene_descuento_pp:
-    st.write(f"Porcentaje de Descuento PP ingresado: **{porcentaje_descuento_pp:.2f}%**")
     
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
