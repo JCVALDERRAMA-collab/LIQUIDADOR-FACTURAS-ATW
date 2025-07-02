@@ -5,7 +5,7 @@ st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
 # --- Agrega esta sección para el logo ---
 try:
-    logo = Image.open('LOGO.png')
+    logo = Image.open('LOGO 2.png')
     st.image(logo, width=200) # Ajusta el 'width' (ancho) si lo necesitas para que se vea bien
 except FileNotFoundError:
     st.warning("⚠️ No se encontró el archivo del logo. Asegúrate de que el nombre del archivo sea correcto y esté en la misma carpeta.")
