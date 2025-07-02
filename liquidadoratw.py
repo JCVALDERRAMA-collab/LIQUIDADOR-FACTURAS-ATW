@@ -144,19 +144,5 @@ if st.button("Generar Correo con Información"):
     Calculadora ATW
     """
 
-    encoded_subject = urllib.parse.quote(email_subject)
-    encoded_body = urllib.parse.quote(email_body)
-
-    recipient_email 1= "cartera@atwinternacional.com"
-    recipient_email 2= "auxiliarcartera1@atwinternacional.com"
-    recipient_email 3= "lidercartera@atwinternacional.com"
-    
-    mailto_link = f"mailto:{recipient_email 1}{recipient_email 3}{recipient_email 3}?subject={encoded_subject}&body={encoded_body}"
-
-    st.success("¡Información lista para enviar!")
-    st.write("Haz clic en el siguiente enlace para abrir tu cliente de correo con la información prellenada:")
-    st.markdown(f"[**Abrir Correo con Información de Factura**]({mailto_link})")
-    st.info("**Nota Importante:** Este método abrirá tu programa de correo predeterminado. Deberás hacer clic en 'Enviar' manualmente. Para un envío completamente automático sin interacción del usuario, se requeriría un servicio de backend (como una función en la nube o una API de envío de correos), lo cual implica una configuración de servidor.")
-
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
