@@ -95,7 +95,6 @@ if tiene_rete_iva:
     st.write(f"- **Retención de IVA (15%):** -${valor_rete_iva:,.2f}")
 st.success(f"**Valor Final del IVA:** ${iva_neto:,.2f}")
 
-st.markdown("---")
 st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
     
 st.markdown("---")
