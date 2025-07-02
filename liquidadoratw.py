@@ -152,7 +152,7 @@ if st.button("Generar Correo con Información"):
         f"mailto:{destinatario_to}"
         f"?subject={encoded_subject}"
         f"&body={encoded_body}"
-        f"&cc={destinatario_cc}" # Opcional: si quieres añadir a CC
+        f"&cc={destinatario_cc}" )# Opcional: si quieres añadir a CC
 
     st.success("¡Correo generado exitosamente! Haz clic en el enlace para abrir tu cliente de correo.")
     st.markdown(f"**[Haz clic aquí para enviar el correo]({mailto_link})**", unsafe_allow_html=True)
