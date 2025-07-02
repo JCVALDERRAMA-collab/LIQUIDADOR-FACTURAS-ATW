@@ -103,9 +103,6 @@ st.header("5. Información Adicional de la Factura")
 nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
-st.markdown("---")
-st.header("6. Enviar Información")
-
 # Botón para enviar la información
 if st.button("Enviar Información por Correo"):
     # Recopilar toda la información relevante
