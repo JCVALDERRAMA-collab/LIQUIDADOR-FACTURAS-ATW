@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
@@ -8,6 +9,7 @@ st.write("¡Hola Equipo ATW! Usa esta herramienta para calcular el valor final a
 
 st.header("1. Ingreso de Valores de la Factura")
 # INGRESAR VALOR DE LA FACTURA
+# Usamos un key único para cada widget por si Streamlit lo necesita internamente
 subtotal_descuento = st.number_input("Por favor, ingrese el **SUBTOTAL - DESCUENTO**:", min_value=0.0, format="%.2f", value=0.0, key="subtotal")
 iva = st.number_input("Ahora, ingrese el **valor del IVA**:", min_value=0.0, format="%.2f", value=0.0, key="iva")
 
@@ -89,6 +91,4 @@ st.success(f"**IVA Neto (IVA - Rete IVA):** ${iva_neto:,.2f}")
 st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
 
 st.markdown("---")
-st.caption("Hecho con ❤️ para Equipo ATW.")
-st.caption("Referencia de ubicación: Girardota, Antioquia, Colombia.")
-st.caption("Fecha de referencia: Miércoles, 2 de julio de 2025.")
+st.caption("Hecho por Cartera ATW Internacional.")
