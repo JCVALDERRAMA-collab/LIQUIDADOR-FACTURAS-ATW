@@ -143,6 +143,19 @@ if st.button("Generar Correo con Información"):
     Saludos,
     Calculadora ATW
     """
+    
+    # Define los destinatarios aquí
+    destinatario_to = "cartera@atwinternacional.com" # Destinatario principal
+    destinatario_cc = "lidercartera@atwinternacional.com,auxiliarcartera1@atwinternacional.com" # Destinatario en CC
+
+    mailto_link = (
+        f"mailto:{destinatario_to}"
+        f"?subject={encoded_subject}"
+        f"&body={encoded_body}"
+        f"&cc={destinatario_cc}" # Opcional: si quieres añadir a CC
+
+    st.success("¡Correo generado exitosamente! Haz clic en el enlace para abrir tu cliente de correo.")
+    st.markdown(f"**[Haz clic aquí para enviar el correo]({mailto_link})**", unsafe_allow_html=True)
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
