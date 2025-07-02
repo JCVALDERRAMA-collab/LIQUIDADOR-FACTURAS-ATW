@@ -158,7 +158,6 @@ if st.button("Generar Correo con Información"):
     st.write("Haz clic en el siguiente enlace para abrir tu cliente de correo con la información prellenada:")
     st.markdown(f"[**Abrir Correo con Información de Factura**]({mailto_link})")
     st.info("**Nota Importante:** Este método abrirá tu programa de correo predeterminado. Deberás hacer clic en 'Enviar' manualmente. Para un envío completamente automático sin interacción del usuario, se requeriría un servicio de backend (como una función en la nube o una API de envío de correos), lo cual implica una configuración de servidor.")
-os), lo cual implica una configuración de servidor.")
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
