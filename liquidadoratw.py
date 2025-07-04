@@ -133,7 +133,6 @@ whatsapp_message = f"""
 """
 
 # Codificar el mensaje para la URL de WhatsApp
-whatsapp_message_encoded = urllib.parse.quote(whatsapp_message)
 import urllib.parse
 def generar_enlace_whatsapp(numero_telefono, mensaje):
     """
@@ -155,12 +154,8 @@ def generar_enlace_whatsapp(numero_telefono, mensaje):
         # Si no se especifica un número, abre el WhatsApp del usuario para que elija el contacto.
         return f"https://wa.me/?text={mensaje_codificado}"
 
-# Crear el enlace de WhatsApp
-whatsapp_link = f"https://wa.me/{whatsapp_number}?text={whatsapp_message_encoded}"
-
 # Mostrar el botón "Enviar a WhatsApp"
 st.markdown(f'<a href="{whatsapp_link}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px;">Enviar a WhatsApp</a>', unsafe_allow_html=True)
-
 
 
 st.markdown("---")
