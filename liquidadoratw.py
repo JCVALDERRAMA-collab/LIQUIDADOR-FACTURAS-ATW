@@ -134,16 +134,6 @@ Saludos,
 Equipo ATW
 """
 
-# Codificar el asunto y el cuerpo para la URL mailto
-email_subject = urllib.parse.quote("Cálculo de Factura ATW - Cliente " + (nit if nit else ''))
-email_body_encoded = urllib.parse.quote(email_body)
-
-# Crear el enlace mailto
-mailto_link = f"mailto:cartera@atw.com?subject={email_subject}&body={email_body_encoded}"
-
-# Mostrar el botón "Enviar a Cartera"
-st.markdown(f'<a href="{mailto_link}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; margin-right: 10px;">Enviar a Cartera (Email)</a>', unsafe_allow_html=True)
-
 # --- Botón para Enviar a WhatsApp ---
 # Número de WhatsApp al que se enviará el mensaje (ej. +573001234567)
 # ¡IMPORTANTE! Reemplaza 'XXXXXXXXXXX' con el número de WhatsApp real (con código de país, sin + ni espacios)
