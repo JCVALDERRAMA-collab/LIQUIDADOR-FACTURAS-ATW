@@ -147,10 +147,8 @@ st.markdown(f'<a href="{mailto_link}" target="_blank" style="display: inline-blo
 # --- Botón para Enviar a WhatsApp ---
 # Número de WhatsApp al que se enviará el mensaje (ej. +573001234567)
 # ¡IMPORTANTE! Reemplaza 'XXXXXXXXXXX' con el número de WhatsApp real (con código de país, sin + ni espacios)
-whatsapp_number = "XXXXXXXXXXX" # Ejemplo: 573001234567
+whatsapp_number = "573173003834" # Ejemplo: 573001234567
 
-# Construir el mensaje de WhatsApp
-whatsapp_message = f"""
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
