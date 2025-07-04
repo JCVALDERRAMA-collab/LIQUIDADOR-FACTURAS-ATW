@@ -103,26 +103,6 @@ nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
 st.markdown("---")
-import urllib.parse
-def generar_enlace_whatsapp(numero_telefono, mensaje):
-    """
-    Genera un enlace de WhatsApp para abrir un chat con un mensaje pre-rellenado.
-
-    Args:
-        numero_telefono (str): '573173003834'
-                                Ej: '573001234567' para Colombia.
-        mensaje (str): hola.
-
-    Returns:
-        str: La URL completa de WhatsApp.
-    """
-    mensaje_codificado = urllib.parse.quote(mensaje)
-    if numero_telefono:
-        # Si se especifica un número, abre el chat con ese número.
-        return f"https://wa.me/{numero_telefono}?text={mensaje_codificado}"
-    else:
-        # Si no se especifica un número, abre el WhatsApp del usuario para que elija el contacto.
-        return f"https://wa.me/?text={mensaje_codificado}"
 
 # --- Botón para Enviar a WhatsApp ---
 # Número de WhatsApp al que se enviará el mensaje (ej. +573001234567)
@@ -154,6 +134,26 @@ whatsapp_message = f"""
 
 # Codificar el mensaje para la URL de WhatsApp
 whatsapp_message_encoded = urllib.parse.quote(whatsapp_message)
+import urllib.parse
+def generar_enlace_whatsapp(numero_telefono, mensaje):
+    """
+    Genera un enlace de WhatsApp para abrir un chat con un mensaje pre-rellenado.
+
+    Args:
+        numero_telefono (str): '573173003834'
+                                Ej: '573001234567' para Colombia.
+        mensaje (str): hola.
+
+    Returns:
+        str: La URL completa de WhatsApp.
+    """
+    mensaje_codificado = urllib.parse.quote(mensaje)
+    if numero_telefono:
+        # Si se especifica un número, abre el chat con ese número.
+        return f"https://wa.me/{numero_telefono}?text={mensaje_codificado}"
+    else:
+        # Si no se especifica un número, abre el WhatsApp del usuario para que elija el contacto.
+        return f"https://wa.me/?text={mensaje_codificado}"
 
 # Crear el enlace de WhatsApp
 whatsapp_link = f"https://wa.me/{whatsapp_number}?text={whatsapp_message_encoded}"
