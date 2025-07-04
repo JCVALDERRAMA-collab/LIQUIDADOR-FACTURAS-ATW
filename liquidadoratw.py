@@ -129,7 +129,6 @@ if st.button("Enviar a WhatsApp"):
 ¡Gracias!
 """
     # Codificar el mensaje para la URL
-    encoded_message = urllib.parse.quote(whatsapp_message)
     whatsapp_url = f"https://wa.me/573173003834?text={encoded_message}"
     
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
