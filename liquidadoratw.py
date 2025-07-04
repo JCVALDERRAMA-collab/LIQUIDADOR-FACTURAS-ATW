@@ -103,12 +103,45 @@ nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
 st.markdown("---")
-# Codificar el mensaje para la URL
+# --- Botón para enviar a WhatsApp ---
+if st.button("Enviar a WhatsApp"):
+    # Construir el mensaje para WhatsApp
+    whatsapp_message = f"""
+¡Hola! Aquí está el resumen de la factura:
+
+* **NIT del Cliente:** {nit if nit else 'No especificado'}
+* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
+* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
+* **IVA inicial:** ${iva:,.2f}
+
+---
+**Aplicaciones:**
+* Retención en la Fuente: {'Sí' if tiene_rete_fuente else 'No'}
+* Retención de IVA: {'Sí' if tiene_rete_iva else 'No'}
+* Descuento por Pronto Pago: {'Sí' if tiene_descuento_pp else 'No'}
+    {f'(Porcentaje: {porcentaje_descuento_pp:.2f}%)' if tiene_descuento_pp else ''}
+
+---
+**Detalle de Cálculos:**
+* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
+* Valor Retención de IVA: -${valor_rete_iva:,.2f}
+* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
+
+---
+**Valores Netos:**
+* Valor Final del Subtotal: ${subtotal_neto:,.2f}
+* Valor Final del IVA: ${iva_neto:,.2f}
+
+---
+**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
+
+¡Gracias!
+"""
+    # Codificar el mensaje para la URL
     encoded_message = urllib.parse.quote(whatsapp_message)
     whatsapp_url = f"https://wa.me/?text={encoded_message}"
     
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
-
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
