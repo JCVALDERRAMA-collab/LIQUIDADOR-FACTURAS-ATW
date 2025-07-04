@@ -103,7 +103,6 @@ nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
 st.markdown("---")
-# --- Botón para enviar a WhatsApp ---
 if st.button("Enviar a WhatsApp"):
     # Construir el mensaje para WhatsApp
     whatsapp_message = f"""
@@ -113,13 +112,6 @@ if st.button("Enviar a WhatsApp"):
 * **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
 * **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
 * **IVA inicial:** ${iva:,.2f}
-
----
-**Aplicaciones:**
-* Retención en la Fuente: {'Sí' if tiene_rete_fuente else 'No'}
-* Retención de IVA: {'Sí' if tiene_rete_iva else 'No'}
-* Descuento por Pronto Pago: {'Sí' if tiene_descuento_pp else 'No'}
-    {f'(Porcentaje: {porcentaje_descuento_pp:.2f}%)' if tiene_descuento_pp else ''}
 
 ---
 **Detalle de Cálculos:**
@@ -139,7 +131,7 @@ if st.button("Enviar a WhatsApp"):
 """
     # Codificar el mensaje para la URL
     encoded_message = urllib.parse.quote(whatsapp_message)
-    whatsapp_url = f"https://wa.me/?text={encoded_message}"
+    whatsapp_url = f"https://wa.me/573173003834?text={encoded_message}"
     
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
