@@ -102,43 +102,6 @@ st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
 nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
-st.markdown("---")
-# --- Botón para Enviar a Cartera (Email) ---
-# Construir el cuerpo del email
-email_body = f"""
-Estimado equipo de Cartera,
-
-Se ha realizado el cálculo del valor a pagar para el cliente con los siguientes detalles:
-
-NIT del Cliente: {nit if nit else 'No especificado'}
-Número de Factura: {numero_factura if numero_factura else 'No especificado'}
-
-Detalles de la Factura:
-- Subtotal Inicial (con descuento): ${subtotal_descuento:,.2f}
-- IVA Inicial: ${iva:,.2f}
-
-Aplicaciones:
-- Retención en la Fuente (2.5%): {'Sí' if tiene_rete_fuente else 'No'} (-${valor_rete_fuente:,.2f})
-- Retención de IVA (15%): {'Sí' if tiene_rete_iva else 'No'} (-${valor_rete_iva:,.2f})
-- Descuento por Pronto Pago ({porcentaje_descuento_pp:.2f}%): {'Sí' if tiene_descuento_pp else 'No'} (-${valor_descuento_pp:,.2f})
-
-Valores Netos:
-- Subtotal Neto: ${subtotal_neto:,.2f}
-- IVA Neto: ${iva_neto:,.2f}
-
-VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}
-
-Por favor, procedan con la gestión correspondiente.
-
-Saludos,
-Equipo ATW
-"""
-
-# --- Botón para Enviar a WhatsApp ---
-# Número de WhatsApp al que se enviará el mensaje (ej. +573001234567)
-# ¡IMPORTANTE! Reemplaza 'XXXXXXXXXXX' con el número de WhatsApp real (con código de país, sin + ni espacios)
-whatsapp_number = "573173003834" # Ejemplo: 573001234567
-
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
