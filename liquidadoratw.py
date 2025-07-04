@@ -124,6 +124,44 @@ def generar_enlace_whatsapp(numero_telefono, mensaje):
         # Si no se especifica un número, abre el WhatsApp del usuario para que elija el contacto.
         return f"https://wa.me/?text={mensaje_codificado}"
 
+# --- Botón para Enviar a WhatsApp ---
+# Número de WhatsApp al que se enviará el mensaje (ej. +573001234567)
+# ¡IMPORTANTE! Reemplaza 'XXXXXXXXXXX' con el número de WhatsApp real (con código de país, sin + ni espacios)
+whatsapp_number = "XXXXXXXXXXX" # Ejemplo: 573001234567
+
+# Construir el mensaje de WhatsApp
+whatsapp_message = f"""
+*Cálculo de Factura ATW*
+
+*NIT del Cliente:* {nit if nit else 'No especificado'}
+*Número de Factura:* {numero_factura if numero_factura else 'No especificado'}
+
+*Detalles de la Factura:*
+- Subtotal Inicial (con descuento): ${subtotal_descuento:,.2f}
+- IVA Inicial: ${iva:,.2f}
+
+*Aplicaciones:*
+- Retención en la Fuente (2.5%): {'Sí' if tiene_rete_fuente else 'No'} (-${valor_rete_fuente:,.2f})
+- Retención de IVA (15%): {'Sí' if tiene_rete_iva else 'No'} (-${valor_rete_iva:,.2f})
+- Descuento por Pronto Pago ({porcentaje_descuento_pp:.2f}%): {'Sí' if tiene_descuento_pp else 'No'} (-${valor_descuento_pp:,.2f})
+
+*Valores Netos:*
+- Subtotal Neto: ${subtotal_neto:,.2f}
+- IVA Neto: ${iva_neto:,.2f}
+
+*VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}*
+"""
+
+# Codificar el mensaje para la URL de WhatsApp
+whatsapp_message_encoded = urllib.parse.quote(whatsapp_message)
+
+# Crear el enlace de WhatsApp
+whatsapp_link = f"https://wa.me/{whatsapp_number}?text={whatsapp_message_encoded}"
+
+# Mostrar el botón "Enviar a WhatsApp"
+st.markdown(f'<a href="{whatsapp_link}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px;">Enviar a WhatsApp</a>', unsafe_allow_html=True)
+
+
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
