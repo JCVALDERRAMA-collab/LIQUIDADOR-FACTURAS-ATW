@@ -103,4 +103,7 @@ nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
 st.markdown("---")
+if st.button("Enviar a WhatsApp"):
+
+st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
