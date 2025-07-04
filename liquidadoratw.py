@@ -103,8 +103,7 @@ nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
 st.markdown("---")
-if st.button("Enviar a WhatsApp"):
-    # Construir el mensaje para WhatsApp
+if st.button
     whatsapp_message = f"""
 ¡Hola! Aquí está el resumen de la factura:
 
