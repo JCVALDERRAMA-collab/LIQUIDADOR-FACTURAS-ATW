@@ -102,6 +102,11 @@ st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
 nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
+campos_obligatorios_completos = bool(nit) and bool(numero_factura)
+
+if not campos_obligatorios_completos:
+    st.warning("Por favor, complete los campos de **NIT** y **Número de Factura** para habilitar los botones de WhatsApp.")
+
 st.markdown("---")
 if st.button("Enviar a WhatsApp Cartera"):
     whatsapp_message = f"""
