@@ -49,7 +49,12 @@ if tiene_descuento_pp:
 # RETE FUENTE
 valor_rete_fuente = 0.0
 if tiene_rete_fuente:
-    valor_rete_fuente = subtotal_descuento * 0.025  # 2.5% es 0.025
+    # Nueva condición: Subtotal - Descuento debe ser mayor o igual a 498,000
+    if subtotal_descuento >= 498000.00:
+        valor_rete_fuente = subtotal_descuento * 0.025  # 2.5% es 0.025
+    else:
+        st.warning("⚠️ El Subtotal - Descuento debe ser mayor o igual a $498,000 para aplicar Retención en la Fuente.")
+        tiene_rete_fuente = False # Desactiva la retención si no cumple la condición
 
 # RETE IVA
 valor_rete_iva = 0.0
