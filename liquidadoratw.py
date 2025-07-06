@@ -18,8 +18,8 @@ st.write("¡Hola Equipo ATW! Usa esta herramienta para calcular el valor final a
 
 st.header("1. Ingreso de Valores de la Factura")
 # INGRESAR VALOR DE LA FACTURA
-subtotal_descuento = st.number_input("Por favor, ingrese el **SUBTOTAL - DESCUENTO**:", min_value=0, format="%.2f", value=0, key="subtotal")
-iva = st.number_input("Ahora, ingrese el **valor del IVA**:", min_value=0, format="%.2f", value=0, key="iva")
+subtotal_descuento = st.number_input("Por favor, ingrese el **SUBTOTAL - DESCUENTO**:", min_value=0.0, format="%.2f", value=0.0, key="subtotal")
+iva = st.number_input("Ahora, ingrese el **valor del IVA**:", min_value=0.0, format="%.2f", value=0.0, key="iva")
 
 st.markdown("---")
 st.header("2. Preguntas sobre Descuentos y Retenciones")
