@@ -108,7 +108,7 @@ if not campos_obligatorios_completos:
     st.warning("Por favor, complete los campos de **NIT** y **Número de Factura** para habilitar los botones de WhatsApp.")
 
 st.markdown("---")
-if st.button("Enviar a WhatsApp Cartera"):
+if st.button("Enviar a WhatsApp Cartera",disabled=not campos_obligatorios_completos):
     whatsapp_message = f"""
 ¡Hola! Aquí está el resumen de la factura:
 
@@ -140,7 +140,7 @@ if st.button("Enviar a WhatsApp Cartera"):
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
-if st.button("Enviar a WhatsApp Cliente"):
+if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_completos):
     whatsapp_message = f"""
 ¡Hola! Aquí está el resumen de la factura:
 
