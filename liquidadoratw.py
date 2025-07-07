@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
-import st_copy_to_clipboard # ¡Nuevo! Para copiar al portapapeles 
+from st_copy_to_clipboard import st_copy_to_clipboard # ¡Nuevo! Para copiar al portapapeles del navegador
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
