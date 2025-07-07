@@ -1,4 +1,4 @@
-iimport streamlit as st
+import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
 
