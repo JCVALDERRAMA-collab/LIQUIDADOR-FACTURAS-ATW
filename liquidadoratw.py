@@ -197,22 +197,11 @@ if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
         textArea.select();
         try {{
             var successful = document.execCommand('copy');
-            var msg = successful ? '¡Copiado!' : 'Error al copiar.';
-            // Streamlit no tiene un sistema de alertas directo,
-            // así que podemos usar un elemento temporal o simplemente imprimir en consola.
-            // Para mostrar un mensaje al usuario, Streamlit Python debe manejarlo.
-            window.parent.postMessage({{
-                type: 'streamlit:setComponentValue',
-                componentId: 'copy_status', // Un ID para que Streamlit pueda "escuchar"
-                value: msg
-            }}, '*');
+            // No es necesario enviar un mensaje de vuelta a Streamlit desde JS para el éxito,
+            // ya que st.success() en Python se encarga de eso.
         }} catch (err) {{
             console.error('Error al intentar copiar: ', err);
-            window.parent.postMessage({{
-                type: 'streamlit:setComponentValue',
-                componentId: 'copy_status',
-                value: 'Error al copiar.'
-            }}, '*');
+            // Si hay un error en JS, se registrará en la consola del navegador.
         }}
         document.body.removeChild(textArea);
     }}
