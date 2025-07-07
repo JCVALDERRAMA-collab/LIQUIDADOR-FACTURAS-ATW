@@ -180,7 +180,7 @@ st.markdown("---")
 # Botón para Copiar Información
 if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
     # El mensaje a copiar es el mismo que el base, sin el "¡Gracias!" final si no se desea.
-    text_to_copy = whatsapp_message.strip() # .strip() para remover espacios extra al inicio/final
+    text_to_copy = whatsapp_message # .strip() para remover espacios extra al inicio/final
 
     # JavaScript para copiar al portapapeles
     # Usamos document.execCommand('copy') porque navigator.clipboard.writeText()
