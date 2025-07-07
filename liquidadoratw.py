@@ -157,6 +157,11 @@ st.markdown("---")
 # Asegúrate de que el texto a copiar esté en una variable Python
 text_to_copy = whatsapp_message_content
 
+# Escapa el texto para que sea seguro dentro de un string de JavaScript
+# Reemplaza saltos de línea con \n y escapa comillas simples y dobles
+# Para plantillas literales de JS, solo necesitamos escapar ` (backtick) y \
+escaped_text_to_copy = text_to_copy.replace("\\", "\\\\").replace("`", "\\`")
+
 # Crea un ID único para el botón
 button_id = "copyButton"
 
@@ -172,7 +177,10 @@ st.markdown(f"""
         const copyButton = document.getElementById('{button_id}');
         const copyMessage = document.getElementById('copyMessage');
         copyButton.onclick = async function() {{
-            const text = `{text_to_copy.replace(/`/g, '\\`')}`; // Escapa comillas inversas para JavaScript
+            // Usamos una plantilla literal de JavaScript (` `) para el texto.
+            // La variable Python `escaped_text_to_copy` ya contiene el texto formateado
+            // y escapado correctamente para ser insertado aquí.
+            const text = `{escaped_text_to_copy}`; 
             try {{
                 await navigator.clipboard.writeText(text);
                 copyMessage.textContent = '¡Copiado al portapapeles!';
@@ -186,6 +194,7 @@ st.markdown(f"""
         }};
     </script>
 """, unsafe_allow_html=True)
+
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
