@@ -1,4 +1,4 @@
-import streamlit as st
+iimport streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
 
@@ -113,8 +113,8 @@ if not campos_obligatorios_completos:
     st.warning("Por favor, complete los campos de **NIT** y **Número de Factura** para habilitar los botones de WhatsApp.")
 
 st.markdown("---")
-# Generar el mensaje de WhatsApp una sola vez para ambos botones (WhatsApp y Copiar)
-whatsapp_message_content = f"""
+if st.button("Enviar a WhatsApp Cartera",disabled=not campos_obligatorios_completos):
+    whatsapp_message = f"""
 ¡Hola! Aquí está el resumen de la factura:
 
 * **NIT del Cliente:** {nit if nit else 'No especificado'}
@@ -138,62 +138,43 @@ whatsapp_message_content = f"""
 
 ¡Gracias!
 """
-
-# Botón para WhatsApp Cartera
-if st.button("Enviar a WhatsApp Cartera", disabled=not campos_obligatorios_completos):
-    encoded_message = urllib.parse.quote(whatsapp_message_content)
+    # Codificar el mensaje para la URL
+    encoded_message = urllib.parse.quote(whatsapp_message)
     whatsapp_url = f"https://wa.me/573173003834?text={encoded_message}"
-    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen (Cartera)</a>', unsafe_allow_html=True)
-
-# Botón para WhatsApp Cliente
-if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_completos):
-    encoded_message = urllib.parse.quote(whatsapp_message_content)
-    whatsapp_url = f"https://wa.me/?text={encoded_message}" # Sin número de teléfono para que el usuario lo elija
-    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen (Cliente)</a>', unsafe_allow_html=True)
+    
+    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
+if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_completos):
+    whatsapp_message = f"""
+¡Hola! Aquí está el resumen de la factura:
 
-# --- Nuevo Botón para Copiar al Portapapeles ---
-# Asegúrate de que el texto a copiar esté en una variable Python
-text_to_copy = whatsapp_message_content
+* **NIT del Cliente:** {nit if nit else 'No especificado'}
+* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
+* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
+* **IVA inicial:** ${iva:,.2f}
 
-# Escapa el texto para que sea seguro dentro de un string de JavaScript
-# Reemplaza saltos de línea con \n y escapa comillas simples y dobles
-# Para plantillas literales de JS, solo necesitamos escapar ` (backtick) y \
-escaped_text_to_copy = text_to_copy.replace("\\", "\\\\").replace("`", "\\`")
+---
+**Detalle de Cálculos:**
+* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
+* Valor Retención de IVA: -${valor_rete_iva:,.2f}
+* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
 
-# Crea un ID único para el botón
-button_id = "copyButton"
+---
+**Valores Netos:**
+* Valor Final del Subtotal: ${subtotal_neto:,.2f}
+* Valor Final del IVA: ${iva_neto:,.2f}
 
-# Inyecta el botón y el script JavaScript
-st.markdown(f"""
-    <button id="{button_id}" style="background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease;"
-            {"disabled" if not campos_obligatorios_completos else ""}>
-        Copiar Resumen al Portapapeles
-    </button>
-    <div id="copyMessage" style="margin-top: 10px; color: green; font-weight: bold;"></div>
+---
+**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
 
-    <script>
-        const copyButton = document.getElementById('{button_id}');
-        const copyMessage = document.getElementById('copyMessage');
-        copyButton.onclick = async function() {{
-            // Usamos una plantilla literal de JavaScript (` `) para el texto.
-            // La variable Python `escaped_text_to_copy` ya contiene el texto formateado
-            // y escapado correctamente para ser insertado aquí.
-            const text = `{escaped_text_to_copy}`; 
-            try {{
-                await navigator.clipboard.writeText(text);
-                copyMessage.textContent = '¡Copiado al portapapeles!';
-                setTimeout(() => {{
-                    copyMessage.textContent = '';
-                }}, 2000);
-            }} catch (err) {{
-                copyMessage.textContent = 'Error al copiar: ' + err;
-                copyMessage.style.color = 'red';
-            }}
-        }};
-    </script>
-""", unsafe_allow_html=True)
+¡Gracias!
+"""
+    # Codificar el mensaje para la URL
+    encoded_message = urllib.parse.quote(whatsapp_message)
+    whatsapp_url = f"https://wa.me/?text={encoded_message}"
+    
+    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
