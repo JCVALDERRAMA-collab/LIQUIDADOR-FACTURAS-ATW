@@ -180,31 +180,7 @@ st.markdown("---")
 # Botón para Copiar Información
 if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
     # El mensaje a copiar es el mismo que el base, sin el "¡Gracias!" final si no se desea.
-    text_to_copy = whatsapp_message_base.strip() # .strip() para remover espacios extra al inicio/final
-    whatsapp_message = f"""
-¡Hola! Aquí está el resumen de la factura:
-
-* **NIT del Cliente:** {nit if nit else 'No especificado'}
-* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
-* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
-* **IVA inicial:** ${iva:,.2f}
-
----
-**Detalle de Cálculos:**
-* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
-* Valor Retención de IVA: -${valor_rete_iva:,.2f}
-* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
-
----
-**Valores Netos:**
-* Valor Final del Subtotal: ${subtotal_neto:,.2f}
-* Valor Final del IVA: ${iva_neto:,.2f}
-
----
-**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
-
-¡Gracias!
-"""
+    text_to_copy = whatsapp_message.strip() # .strip() para remover espacios extra al inicio/final
 
     # JavaScript para copiar al portapapeles
     # Usamos document.execCommand('copy') porque navigator.clipboard.writeText()
