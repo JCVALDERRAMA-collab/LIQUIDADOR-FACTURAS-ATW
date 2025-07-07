@@ -162,17 +162,13 @@ if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_compl
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp Cliente con el resumen</a>', unsafe_allow_html=True)
 
 # --- Nuevo botón para copiar al portapapeles ---
-if st.button("Copiar Mensaje al Portapapeles", disabled=not campos_obligatorios_completos):
+if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
     try:
         pyperclip.copy(whatsapp_message_final)
         st.success("¡Mensaje copiado al portapapeles! Ya puedes pegarlo donde necesites.")
     except pyperclip.PyperclipException as e:
         st.error(f"❌ Error al copiar el mensaje al portapapeles: {e}")
         st.info("Para que la función de copiar funcione correctamente, en sistemas Linux podría ser necesario instalar 'xclip' o 'xsel'.")
-
-st.markdown("---")
-st.subheader("Previsualización del Mensaje:")
-st.text_area("Este es el contenido que se enviará o copiará:", value=whatsapp_message_final, height=300)
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
