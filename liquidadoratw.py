@@ -154,7 +154,7 @@ if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_compl
 st.markdown("---")
 # --- Nuevo Botón para Copiar al Portapapeles ---
 # Asegúrate de que el texto a copiar esté en una variable Python
-if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_completos):
+if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
 text_to_copy = whatsapp_message_content
 
 # Escapa el texto para que sea seguro dentro de un string de JavaScript
