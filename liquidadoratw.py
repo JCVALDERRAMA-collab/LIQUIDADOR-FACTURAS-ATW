@@ -177,7 +177,6 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
-# Botón para Copiar Información
 if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
     # El mensaje a copiar es el mismo que el base, sin el "¡Gracias!" final si no se desea.
     text_to_copy = whatsapp_message # .strip() para remover espacios extra al inicio/final
@@ -186,7 +185,28 @@ if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
     # Usamos document.execCommand('copy') porque navigator.clipboard.writeText()
     # puede tener restricciones en iframes o entornos específicos.
     js_code = f"""
-    <script>
+    ¡Hola! Aquí está el resumen de la factura:
+
+* **NIT del Cliente:** {nit if nit else 'No especificado'}
+* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
+* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
+* **IVA inicial:** ${iva:,.2f}
+
+---
+**Detalle de Cálculos:**
+* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
+* Valor Retención de IVA: -${valor_rete_iva:,.2f}
+* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
+
+---
+**Valores Netos:**
+* Valor Final del Subtotal: ${subtotal_neto:,.2f}
+* Valor Final del IVA: ${iva_neto:,.2f}
+
+---
+**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
+
+¡Gracias!
     function copyToClipboard(text) {{
         var textArea = document.createElement("textarea");
         textArea.value = text;
@@ -211,7 +231,7 @@ if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
     # st.components.v1.html ejecuta el HTML/JS.
     # No es necesario que devuelva nada visible, solo que ejecute el JS.
     st.components.v1.html(js_code, height=0, width=0)
-    st.success("¡Información copiada al portapapeles!")
+    st.success("¡Información copiada al portapapeles!") # Added "!" for emphasis
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
