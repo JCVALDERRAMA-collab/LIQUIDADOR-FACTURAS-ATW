@@ -177,4 +177,52 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
+# Botón para Copiar Información
+if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
+    # El mensaje a copiar es el mismo que el base, sin el "¡Gracias!" final si no se desea.
+    text_to_copy = whatsapp_message_base.strip() # .strip() para remover espacios extra al inicio/final
+
+    # JavaScript para copiar al portapapeles
+    # Usamos document.execCommand('copy') porque navigator.clipboard.writeText()
+    # puede tener restricciones en iframes o entornos específicos.
+    js_code = f"""
+    <script>
+    function copyToClipboard(text) {{
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";  // Para que no afecte el layout
+        textArea.style.left = "-9999px";    // Para que no sea visible
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {{
+            var successful = document.execCommand('copy');
+            var msg = successful ? '¡Copiado!' : 'Error al copiar.';
+            // Streamlit no tiene un sistema de alertas directo,
+            // así que podemos usar un elemento temporal o simplemente imprimir en consola.
+            // Para mostrar un mensaje al usuario, Streamlit Python debe manejarlo.
+            window.parent.postMessage({{
+                type: 'streamlit:setComponentValue',
+                componentId: 'copy_status', // Un ID para que Streamlit pueda "escuchar"
+                value: msg
+            }}, '*');
+        }} catch (err) {{
+            console.error('Error al intentar copiar: ', err);
+            window.parent.postMessage({{
+                type: 'streamlit:setComponentValue',
+                componentId: 'copy_status',
+                value: 'Error al copiar.'
+            }}, '*');
+        }}
+        document.body.removeChild(textArea);
+    }}
+    copyToClipboard(`{text_to_copy.replace("`", "\\`")}`); // Escapar backticks
+    </script>
+    """
+    # st.components.v1.html ejecuta el HTML/JS.
+    # No es necesario que devuelva nada visible, solo que ejecute el JS.
+    st.components.v1.html(js_code, height=0, width=0)
+    st.success("¡Información copiada al portapapeles!")
+
+st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
