@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
+import pyperclip # ¡Nuevo! Para copiar al portapapeles (pip install pyperclip)
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
@@ -113,67 +114,65 @@ if not campos_obligatorios_completos:
     st.warning("Por favor, complete los campos de **NIT** y **Número de Factura** para habilitar los botones de WhatsApp.")
 
 st.markdown("---")
-if st.button("Enviar a WhatsApp Cartera",disabled=not campos_obligatorios_completos):
-    whatsapp_message = f"""
+
+# Función para generar el mensaje de WhatsApp
+def generar_whatsapp_message(nit_cliente, num_factura, sub_desc, iva_val, rete_fuente_val, rete_iva_val, desc_pp_val, sub_neto_val, iva_neto_val, total_pagar_val):
+    return f"""
 ¡Hola! Aquí está el resumen de la factura:
 
-* **NIT del Cliente:** {nit if nit else 'No especificado'}
-* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
-* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
-* **IVA inicial:** ${iva:,.2f}
+* **NIT del Cliente:** {nit_cliente if nit_cliente else 'No especificado'}
+* **Número de Factura:** {num_factura if num_factura else 'No especificado'}
+* **Subtotal - Descuento inicial:** ${sub_desc:,.2f}
+* **IVA inicial:** ${iva_val:,.2f}
 
 ---
 **Detalle de Cálculos:**
-* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
-* Valor Retención de IVA: -${valor_rete_iva:,.2f}
-* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
+* Valor Retención en la Fuente: -${rete_fuente_val:,.2f}
+* Valor Retención de IVA: -${rete_iva_val:,.2f}
+* Valor Descuento por Pronto Pago: -${desc_pp_val:,.2f}
 
 ---
 **Valores Netos:**
-* Valor Final del Subtotal: ${subtotal_neto:,.2f}
-* Valor Final del IVA: ${iva_neto:,.2f}
+* Valor Final del Subtotal: ${sub_neto_val:,.2f}
+* Valor Final del IVA: ${iva_neto_val:,.2f}
 
 ---
-**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
+**VALOR TOTAL A PAGAR POR EL CLIENTE: ${total_pagar_val:,.2f}**
 
 ¡Gracias!
 """
-    # Codificar el mensaje para la URL
-    encoded_message = urllib.parse.quote(whatsapp_message)
+
+# Genera el mensaje una sola vez después de todos los cálculos
+whatsapp_message_final = generar_whatsapp_message(
+    nit, numero_factura, subtotal_descuento, iva,
+    valor_rete_fuente, valor_rete_iva, valor_descuento_pp,
+    subtotal_neto, iva_neto, valor_a_pagar
+)
+
+# Botón para WhatsApp Cartera
+if st.button("Enviar a WhatsApp Cartera", disabled=not campos_obligatorios_completos):
+    encoded_message = urllib.parse.quote(whatsapp_message_final)
     whatsapp_url = f"https://wa.me/573173003834?text={encoded_message}"
-    
-    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
+    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp Cartera con el resumen</a>', unsafe_allow_html=True)
 
-if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_completos):
-    whatsapp_message = f"""
-¡Hola! Aquí está el resumen de la factura:
+# Botón para WhatsApp Cliente
+if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_completos):
+    encoded_message = urllib.parse.quote(whatsapp_message_final)
+    whatsapp_url = f"https://wa.me/?text={encoded_message}" # Sin número específico para que el usuario elija
+    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp Cliente con el resumen</a>', unsafe_allow_html=True)
 
-* **NIT del Cliente:** {nit if nit else 'No especificado'}
-* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
-* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
-* **IVA inicial:** ${iva:,.2f}
+# --- Nuevo botón para copiar al portapapeles ---
+if st.button("Copiar Mensaje al Portapapeles", disabled=not campos_obligatorios_completos):
+    try:
+        pyperclip.copy(whatsapp_message_final)
+        st.success("¡Mensaje copiado al portapapeles! Ya puedes pegarlo donde necesites.")
+    except pyperclip.PyperclipException as e:
+        st.error(f"❌ Error al copiar el mensaje al portapapeles: {e}")
+        st.info("Para que la función de copiar funcione correctamente, en sistemas Linux podría ser necesario instalar 'xclip' o 'xsel'.")
 
----
-**Detalle de Cálculos:**
-* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
-* Valor Retención de IVA: -${valor_rete_iva:,.2f}
-* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
-
----
-**Valores Netos:**
-* Valor Final del Subtotal: ${subtotal_neto:,.2f}
-* Valor Final del IVA: ${iva_neto:,.2f}
-
----
-**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
-
-¡Gracias!
-"""
-    # Codificar el mensaje para la URL
-    encoded_message = urllib.parse.quote(whatsapp_message)
-    whatsapp_url = f"https://wa.me/?text={encoded_message}"
-    
-    st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
+st.markdown("---")
+st.subheader("Previsualización del Mensaje:")
+st.text_area("Este es el contenido que se enviará o copiará:", value=whatsapp_message_final, height=300)
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
