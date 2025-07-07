@@ -177,31 +177,46 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
-if st.button("Copiar Información",disabled=not campos_obligatorios_completos):
-    
-¡Hola! Aquí está el resumen de la factura:
+    text_to_copy = whatsapp_message_base.strip() # .strip() para remover espacios extra al inicio/final
 
-* **NIT del Cliente:** {nit if nit else 'No especificado'}
-* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
-* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
-* **IVA inicial:** ${iva:,.2f}
-
----
-**Detalle de Cálculos:**
-* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
-* Valor Retención de IVA: -${valor_rete_iva:,.2f}
-* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
-
----
-**Valores Netos:**
-* Valor Final del Subtotal: ${subtotal_neto:,.2f}
-* Valor Final del IVA: ${iva_neto:,.2f}
-
----
-**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
-
-¡Gracias!
-"""
+    js_code = f"""
+    <script>
+    function copyToClipboard(text) {{
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";  // Para que no afecte el layout
+        textArea.style.left = "-9999px";    // Para que no sea visible
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {{
+            var successful = document.execCommand('copy');
+            var msg = successful ? '¡Copiado!' : 'Error al copiar.';
+            // Streamlit no tiene un sistema de alertas directo,
+            // así que podemos usar un elemento temporal o simplemente imprimir en consola.
+            // Para mostrar un mensaje al usuario, Streamlit Python debe manejarlo.
+            window.parent.postMessage({{
+                type: 'streamlit:setComponentValue',
+                componentId: 'copy_status', // Un ID para que Streamlit pueda "escuchar"
+                value: msg
+            }}, '*');
+        }} catch (err) {{
+            console.error('Error al intentar copiar: ', err);
+            window.parent.postMessage({{
+                type: 'streamlit:setComponentValue',
+                componentId: 'copy_status',
+                value: 'Error al copiar.'
+            }}, '*');
+        }}
+        document.body.removeChild(textArea);
+    }}
+    copyToClipboard(`{text_to_copy.replace("`", "\\`")}`); // Escapar backticks
+    </script>
+    """
+    # st.components.v1.html ejecuta el HTML/JS.
+    # No es necesario que devuelva nada visible, solo que ejecute el JS.
+    st.components.v1.html(js_code, height=0, width=0)
+    st.success("¡Información copiada al portapapeles!")
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
