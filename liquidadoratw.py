@@ -1,7 +1,6 @@
 import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
-import pyperclip # Make sure you've installed this: pip install pyperclip
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
@@ -175,59 +174,6 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
     whatsapp_url = f"https://wa.me/?text={encoded_message}"
     
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
-
-st.markdown("---")
-# Assume these variables are defined elsewhere in your Streamlit app
-# For demonstration purposes:
-nit = "123.456.789-0"
-numero_factura = "20250707-001"
-subtotal_descuento = 100000.00
-iva = 19000.00
-valor_rete_fuente = 2500.00
-valor_rete_iva = 500.00
-valor_descuento_pp = 1000.00
-subtotal_neto = 96500.00
-iva_neto = 18500.00
-valor_a_pagar = 115000.00
-campos_obligatorios_completos = True # Set this based on your actual validation logic
-
-whatsapp_message = f"""
-¡Hola! Aquí está el resumen de la factura:
-
-* **NIT del Cliente:** {nit if nit else 'No especificado'}
-* **Número de Factura:** {numero_factura if numero_factura else 'No especificado'}
-* **Subtotal - Descuento inicial:** ${subtotal_descuento:,.2f}
-* **IVA inicial:** ${iva:,.2f}
-
----
-**Detalle de Cálculos:**
-* Valor Retención en la Fuente: -${valor_rete_fuente:,.2f}
-* Valor Retención de IVA: -${valor_rete_iva:,.2f}
-* Valor Descuento por Pronto Pago: -${valor_descuento_pp:,.2f}
-
----
-**Valores Netos:**
-* Valor Final del Subtotal: ${subtotal_neto:,.2f}
-* Valor Final del IVA: ${iva_neto:,.2f}
-
----
-**VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**
-
-¡Gracias!
-"""
-
-if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
-    try:
-        pyperclip.copy(whatsapp_message)
-        st.success("¡Mensaje copiado al portapapeles!")
-    except pyperclip.PyperclipException as e:
-        st.error(f"No se pudo copiar el mensaje al portapapeles. Error: {e}")
-        st.info("Para que funcione en Linux, es posible que necesites instalar 'xclip' o 'xsel'.")
-
-    st.write("---")
-    st.markdown("### Previsualización del Mensaje Copiado:")
-    st.info(whatsapp_message)
-
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
