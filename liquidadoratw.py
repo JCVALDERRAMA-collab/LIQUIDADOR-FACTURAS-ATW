@@ -152,10 +152,10 @@ if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_compl
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen (Cliente)</a>', unsafe_allow_html=True)
 
 st.markdown("---")
+
 # --- Nuevo Botón para Copiar al Portapapeles ---
 # Asegúrate de que el texto a copiar esté en una variable Python
-if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
-    text_to_copy = whatsapp_message_content
+text_to_copy = whatsapp_message_content
 
 # Escapa el texto para que sea seguro dentro de un string de JavaScript
 # Reemplaza saltos de línea con \n y escapa comillas simples y dobles
@@ -163,7 +163,7 @@ if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
 escaped_text_to_copy = text_to_copy.replace("\\", "\\\\").replace("`", "\\`")
 
 # Crea un ID único para el botón
-button_id = "Copiar Información"
+button_id = "copyButton"
 
 # Inyecta el botón y el script JavaScript
 st.markdown(f"""
@@ -194,7 +194,6 @@ st.markdown(f"""
         }};
     </script>
 """, unsafe_allow_html=True)
-
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
