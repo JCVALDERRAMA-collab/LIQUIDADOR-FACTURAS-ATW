@@ -179,5 +179,6 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
 st.markdown("---")
 if st.button("Copiar Información",disabled=not campos_obligatorios_completos):
 
+
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
