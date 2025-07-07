@@ -186,8 +186,16 @@ st.markdown(f"""
                     console.error('Error al copiar:', err);
                     copyMessage.textContent = 'Error al copiar. Asegúrate de estar en HTTPS o localhost.';
                     copyMessage.style.color = 'red';
+                    // Mensajes de error específicos para el usuario
+                    if (err.name === 'NotAllowedError') {{
+                        copyMessage.textContent = 'Permiso denegado para copiar. Habilita el permiso en tu navegador.';
+                    }} else if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {{
+                         copyMessage.textContent = 'Error: La copia solo funciona en HTTPS o localhost.';
+                    }}
                 }}
             }};
+        }} else {{
+            console.error("No se encontró el botón de copiar con ID:", '{button_id}');
         }}
     </script>
 """, unsafe_allow_html=True)
