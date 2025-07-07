@@ -163,7 +163,7 @@ if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
 escaped_text_to_copy = text_to_copy.replace("\\", "\\\\").replace("`", "\\`")
 
 # Crea un ID único para el botón
-button_id = "copyButton"
+button_id = "Copiar Información"
 
 # Inyecta el botón y el script JavaScript
 st.markdown(f"""
