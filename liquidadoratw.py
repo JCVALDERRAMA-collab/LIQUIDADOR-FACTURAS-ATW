@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
+import pyperclip # Make sure you've installed this: pip install pyperclip
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
@@ -176,9 +177,6 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
 
 st.markdown("---")
-import streamlit as st
-import pyperclip # Make sure you've installed this: pip install pyperclip
-
 # Assume these variables are defined elsewhere in your Streamlit app
 # For demonstration purposes:
 nit = "123.456.789-0"
