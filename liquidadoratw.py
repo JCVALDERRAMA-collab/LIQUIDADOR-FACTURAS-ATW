@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image # Asegúrate de que Pillow esté instalado (pip install Pillow)
 import urllib.parse # Para codificar la URL del mailto
-import pyperclip # ¡Nuevo! Para copiar al portapapeles 
+import st_copy_to_clipboard # ¡Nuevo! Para copiar al portapapeles 
 
 st.set_page_config(page_title="Calculadora de Facturas ATW", layout="centered")
 
@@ -163,12 +163,9 @@ if st.button("Enviar a WhatsApp Cliente", disabled=not campos_obligatorios_compl
 
 # --- Nuevo botón para copiar al portapapeles ---
 if st.button("Copiar Información", disabled=not campos_obligatorios_completos):
-    try:
-        pyperclip.copy(whatsapp_message_final)
-        st.success("¡Mensaje copiado al portapapeles! Ya puedes pegarlo donde necesites.")
-    except pyperclip.PyperclipException as e:
-        st.error(f"❌ Error al copiar el mensaje al portapapeles: {e}")
-        st.info("Para que la función de copiar funcione correctamente, en sistemas Linux podría ser necesario instalar 'xclip' o 'xsel'.")
+    # Ya no necesitamos el try-except de pyperclip, st_copy_to_clipboard maneja esto internamente
+    st_copy_to_clipboard(whatsapp_message_final)
+    st.success("¡Mensaje copiado al portapapeles! Ya puedes pegarlo donde necesites.")
 
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
