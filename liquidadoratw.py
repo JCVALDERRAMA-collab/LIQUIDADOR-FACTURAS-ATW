@@ -175,10 +175,6 @@ if st.button("Enviar a WhatsApp Cliente",disabled=not campos_obligatorios_comple
     whatsapp_url = f"https://wa.me/?text={encoded_message}"
     
     st.markdown(f'<a href="{whatsapp_url}" target="_blank" style="display: inline-block; padding: 12px 20px; background-color: #25D366; color: white; text-align: center; text-decoration: none; font-size: 16px; border-radius: 8px; border: none; cursor: pointer;">Abrir WhatsApp con el resumen</a>', unsafe_allow_html=True)
-
-st.markdown("---")
-if st.button("Copiar Información",disabled=not campos_obligatorios_completos):
-
-
+    
 st.markdown("---")
 st.caption("Hecho por Cartera ATW Internacional.")
