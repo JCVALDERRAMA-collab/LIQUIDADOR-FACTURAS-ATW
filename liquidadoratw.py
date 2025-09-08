@@ -105,6 +105,7 @@ st.success(f"**Valor Final del IVA:** ${iva_neto:,.2f}")
 st.markdown(f"## **VALOR TOTAL A PAGAR POR EL CLIENTE: ${valor_a_pagar:,.2f}**")
 
 # Nuevos cuadros de texto para NIT y Número de Factura
+nonbre razón social = st.text_input("Ingrese el **Razón Social** del cliente:", key="nom_razonsocial")
 nit = st.text_input("Ingrese el **NIT** del cliente:", key="nit_cliente")
 numero_factura = st.text_input("Ingrese el **Número de Factura**:", key="num_factura")
 
